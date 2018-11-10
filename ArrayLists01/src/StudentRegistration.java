@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -20,27 +21,42 @@ public class StudentRegistration {
 		
 		
 		List<Student> students=new ArrayList<Student>();		
-		Student myStudent = new Student();
+		Student myStudent;//default value is null;
+		myStudent=new Student();
+		Student anyStudent =new Student();
+		System.out.println(Student.school);
 		Scanner input =new Scanner(System.in);
 		boolean moreInputs=true;
-		
 		while(moreInputs)
-		{	myStudent = new Student();
+		{	
+			
+			
+			//myStudent = new Student();
 			System.out.println("First Name :");
-			myStudent.setFirstName(input.next());
+			String firstName=input.next();						
+//			myStudent.setFirstName(input.next());
 			System.out.println("Last Name :");
-			myStudent.setLastName(input.next());
+			String lastName=input.next();
+//			myStudent.setLastName(input.next());
 			System.out.println("Student Id :");
-			myStudent.setStudentId(input.next());
+			String studentId=input.next();
+//			myStudent.setStudentId(input.next());
+						
+			myStudent =new Student(firstName,lastName,studentId);
+			myStudent.school="YOUR SCHOOL";
+			
 			students.add(myStudent);
 			System.out.println("More students to enter : [YES/NO]");
 			moreInputs= "YES".equalsIgnoreCase(input.next())?true:false;
+			String[] a= {"aaa","fdfd"};
+			String b=Arrays.toString(a);
+			System.out.println(a);
 		}
 		
 		System.out.println("Student List :");
 		for (Student s:students)
 		{
-			System.out.println("Student : Firstname :"+s.getFirstName()+", Last name :"+s.getLastName()+", Student Id:"+s.getStudentId());
+			System.out.println("Student : Firstname :"+s.getFirstName()+", Last name :"+s.getLastName()+", Student Id:"+s.getStudentId()+",Schhol Name: "+Student.school);
 			
 		}
 		
