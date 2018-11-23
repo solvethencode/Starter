@@ -13,6 +13,10 @@ public class Rectangle {
 	{
 		return getLength()*getWidth();
 	}
+	
+	String sayHello() {
+		return "Hello";
+	}
 
 	public double getWidth() {
 		return width;
