@@ -26,7 +26,7 @@ public class Shelf {
      */
     public static List<Book> getTheBooks() {
         
-    	return null;
+    	return Shelf.theBooks;
     }
 
     /**
@@ -37,11 +37,11 @@ public class Shelf {
      */
     public static boolean isShelfEmpty(){
        
-    	return false;
+    	return theBooks.isEmpty();//true or false
     }
 
     /**
-     * isIDUnique accepts an id and loops though each Book object in theBooks list
+     * isIDUnique accepts an id and loops through each Book object in theBooks list
      * and if id was already assigned to another book, it will return false
      * If id was never used, it will return true
      * @param id
@@ -49,8 +49,12 @@ public class Shelf {
      */
     public static boolean isIDUnique(int id){
      
+    	for(Book book:theBooks)
+    	{
+    		if( book.getId()==id) return false;
+    	}
     	
-    	return false;
+    	return true;
      
     }
 
@@ -75,9 +79,15 @@ public class Shelf {
      */
     public static boolean addBook(int id, String author, String title, int pages ){
       
+    	Book book;
+    	if(!isIDUnique(id) || title.isEmpty() || pages<=0)
+    	{
+    		return false;
+    	}
     	
-    	
-      return false;
+    	book=new Book(id,author,title,pages);
+    	theBooks.add(book);
+    	return true;
     }
 
     /**
@@ -100,11 +110,14 @@ public class Shelf {
      *      Shelf.addBook(book1); => true
      *
      */
-    public static boolean addBook(Book book ){
-        
-        
+    public static boolean addBook(Book book ){             
     	
-    	return false;
+    	if(!isIDUnique(book.getId()) || book.getTitle().isEmpty() || book.getPages()<=0)
+    	{
+    		return false;
+    	}   
+    	theBooks.add(book);
+    return true;
     }
 
     /**
@@ -120,9 +133,12 @@ public class Shelf {
      */
     public static String getTitleByID(int id) {
         
-        
+        for(Book book: theBooks)
+        {
+        	if (book.getId()==id) return book.getTitle();
+        }
     	
-    	return null;
+    	return "book not found";
     }
 
     /**
@@ -140,7 +156,10 @@ public class Shelf {
      */
     public static Book findBookByPartialTitle(String title) {
        
-       
+    	 for(Book book: theBooks)
+         {
+         	if (book.getTitle().contains(title)) return book;
+         }
     	
     	return null;
     }
@@ -154,9 +173,13 @@ public class Shelf {
      * @return List<Book> that belongs to that Author
      */
     public static List<Book> getAllBooksForAuthor(String author) {
+       List<Book> books=new ArrayList<>();
+       for(Book book: theBooks)
+       {
+       	if (author.equals(book.getAuthor())) books.add(book);
+       }
        
-       
-    	return null;
+    	return books;
     }
 
     /**
@@ -166,8 +189,18 @@ public class Shelf {
      * if there is not match, no action needed
      */
     public static void removeBook(int id) {
-       
-       
+       System.out.println(theBooks.size());
+    	Book temp=new Book();
+       for(Book book: theBooks)
+         {
+         	if (book.getId()==id) 
+         	{
+         		temp=book;
+         		break;
+         	}
+         }
+    	 theBooks.remove(temp);
+    	 System.out.println(theBooks.size());
     }
 
     /**
@@ -178,14 +211,21 @@ public class Shelf {
      */
     public static void removeBook(String author) {
     
+    for (int i=0; i<theBooks.size();i++)
+    {
+     if( theBooks.get(i).getAuthor().equals(author))
+     {
+    	 theBooks.remove(i);
+    	 i--;
+     }
+     }  
     
     }
-
     /**
      * Clears the BookShelf of all books
      */
     public static void clearBookShelf() {
-       
+       theBooks.clear();
        
     }
 
